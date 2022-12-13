@@ -26,7 +26,7 @@ namespace WindowsFormsApp3
             dataGridView1.Columns[0].Width = 1000;
             string[] ports = SerialPort.GetPortNames();
 
-            string[] items = new string[] { "9600", "14400", "38400", "57600", "115200,200000" };
+            string[] items = new string[] {  "9600", "14400", "38400", "57600", "115200","200000" };
             foreach (var item in items)
             {
                 BaudRate.Items.Add(item);
