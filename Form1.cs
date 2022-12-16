@@ -106,7 +106,7 @@ namespace WindowsFormsApp3
 
                     if (chart1.InvokeRequired)
                     {
-                        T += 14;
+                        T += 33;
 
 
 
