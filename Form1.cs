@@ -26,7 +26,7 @@ namespace WindowsFormsApp3
             dataGridView1.Columns[0].Width = 1000;
             string[] ports = SerialPort.GetPortNames();
 
-            string[] items = new string[] {  "9600", "14400", "38400", "57600", "115200","200000" };
+            string[] items = new string[] { "2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "76800", "115200", "230400", "250000" };
             foreach (var item in items)
             {
                 BaudRate.Items.Add(item);
@@ -38,8 +38,8 @@ namespace WindowsFormsApp3
             }
 
         }
-        private int rowIndex = 0;
-        private void DataGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        int rowIndex = 0;
+        void DataGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -50,23 +50,13 @@ namespace WindowsFormsApp3
                 contextMenuStrip1.Show(System.Windows.Forms.Cursor.Position);
             }
         }
-        double currentXMax = 10;
-        double currentXMin = 1;
-        double currentYMax = 6;
-        double currentYMin = -6;
-        void setScale()
-        {
-            if (currentXMax > currentXMin && currentYMax > currentYMin)
-            {
-
-                chart1.ChartAreas[0].AxisY.Maximum = currentYMax;
-                chart1.ChartAreas[0].AxisY.Minimum = currentYMin;
-            }
-        }
+        
         List<String> Ex = new List<String>();
         double T = 0;
-        double X = 1;
         Thread masterThread;
+        SerialPort port;
+      
+        
         private void Start_Click(object sender, EventArgs e)
         {
             try
@@ -113,29 +103,53 @@ namespace WindowsFormsApp3
             {
                 try
                 {
-                    T += 15;
-                    currentXMax = T;
 
-                    if (TimeT > T)
-                    {
-                        currentXMin = 0;
-
-                    }
-                    else
-                        currentXMin = T - TimeT;
-
-                    getValue = Convert.ToByte(port.ReadByte());
-                    double getValueI = (Convert.ToInt32(getValue) )/ 51.2;
                     if (chart1.InvokeRequired)
                     {
+                        T += 14;
 
+
+
+
+
+                        double getValueI = (Convert.ToInt32(Convert.ToByte(port.ReadByte()))) / 51.2;
                         chart1.Invoke((MethodInvoker)delegate
                         {
+                            if (checkBox1.Checked)
+                            {
+
+                                double to;
+                                double from; 
+                                if ( double.TryParse(To_text.Text,out to) && double.TryParse(From_text.Text, out from) && (from < to))
+                                {
+                                    currentXMax = to;
+                                    currentXMin = from;
+                                    
+                                }
+                                else 
+                                {  
+                                    
+                                    currentXMax = T;
+
+                                    currentXMin = T - TimeT;
+                                }
+                                    
+
+
+                            }
+                            else
+                            {
+                               
+                                currentXMax = T;
+                                currentXMin = T - TimeT;
+                            }
+
                             chart1.Series["Series1"].Points.AddXY(T, getValueI);
                             chart1.ChartAreas[0].AxisX.Minimum = currentXMin;
-                            V_Text.Text=getValueI.ToString();
-                            T_Text.Text=((currentXMax-currentXMin)/1000).ToString();
-                         
+                            chart1.ChartAreas[0].AxisX.Maximum = currentXMax;
+                            V_Text.Text = getValueI.ToString();
+                            T_Text.Text = ((currentXMax - currentXMin) / 1000).ToString();
+
                         });
                     }
 
@@ -148,19 +162,12 @@ namespace WindowsFormsApp3
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.BackColor = Color.DarkGreen;
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.ForeColor = Color.White;
                 }
-                chart1.Invoke((MethodInvoker)(() => chart1.ChartAreas[0].AxisX.Minimum = currentXMin));
+
 
             }
 
         }
-        SerialPort port;
-        Byte getValue;
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
+        
         private void Up_Click(object sender, EventArgs e)
         {
             currentYMax += 1;
@@ -175,26 +182,32 @@ namespace WindowsFormsApp3
             setScale();
 
         }
+        double currentXMax = 10;
+        double currentXMin = 1;
+        double currentYMax = 5;
+        double currentYMin = -5;
+        void setScale()
+        {
+            if (currentXMax > currentXMin && currentYMax > currentYMin)
+            {
 
+                chart1.ChartAreas[0].AxisY.Maximum = currentYMax;
+                chart1.ChartAreas[0].AxisY.Minimum = currentYMin;
+            }
+        }
+        
         int TimeT = 1;
+        
+        private void Time_Scroll(object sender, EventArgs e)
+        {
+            setTimeT();
+        }
         void setTimeT()
         {
             TimeT = trackBar1.Value;
         }
 
-        private void Time_Scroll(object sender, EventArgs e)
-        {
-            setTimeT();
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
