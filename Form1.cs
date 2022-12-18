@@ -50,18 +50,14 @@ namespace WindowsFormsApp3
                 contextMenuStrip1.Show(System.Windows.Forms.Cursor.Position);
             }
         }
-        
         List<String> Ex = new List<String>();
         double T = 0;
         Thread masterThread;
         SerialPort port;
-      
-        
         private void Start_Click(object sender, EventArgs e)
         {
             try
             {
-
                 port = new SerialPort(comboBox1.Text, Convert.ToInt32(BaudRate.Text), Parity.None, 8, StopBits.One);
                 if (port.IsOpen)
                     port.Close();
@@ -80,10 +76,7 @@ namespace WindowsFormsApp3
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.BackColor = Color.DarkGoldenrod;
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.ForeColor = Color.White;
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -94,24 +87,16 @@ namespace WindowsFormsApp3
                 dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.ForeColor = Color.White;
             }
 
-
         }
         void Runit()
         {
-
             while (port.IsOpen)
             {
                 try
                 {
-
                     if (chart1.InvokeRequired)
                     {
                         T += 33;
-
-
-
-
-
                         double getValueI = (Convert.ToInt32(Convert.ToByte(port.ReadByte()))) / 51.2;
                         chart1.Invoke((MethodInvoker)delegate
                         {
@@ -123,36 +108,26 @@ namespace WindowsFormsApp3
                                 if ( double.TryParse(To_text.Text,out to) && double.TryParse(From_text.Text, out from) && (from < to))
                                 {
                                     currentXMax = to;
-                                    currentXMin = from;
-                                    
+                                    currentXMin = from;   
                                 }
                                 else 
                                 {  
-                                    
                                     currentXMax = T;
-
                                     currentXMin = T - TimeT;
                                 }
-                                    
-
-
                             }
                             else
                             {
-                               
                                 currentXMax = T;
                                 currentXMin = T - TimeT;
                             }
-
                             chart1.Series["Series1"].Points.AddXY(T, getValueI);
                             chart1.ChartAreas[0].AxisX.Minimum = currentXMin;
                             chart1.ChartAreas[0].AxisX.Maximum = currentXMax;
                             V_Text.Text = getValueI.ToString();
                             T_Text.Text = ((currentXMax - currentXMin) / 1000).ToString();
-
                         });
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -162,12 +137,8 @@ namespace WindowsFormsApp3
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.BackColor = Color.DarkGreen;
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.ForeColor = Color.White;
                 }
-
-
             }
-
-        }
-        
+        }     
         private void Up_Click(object sender, EventArgs e)
         {
             currentYMax += 1;
