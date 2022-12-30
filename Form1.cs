@@ -90,21 +90,22 @@ namespace WindowsFormsApp3
         }
         void Runit()
         {
+            double to;
+            double from; 
             while (port.IsOpen)
             {
                 try
                 {
                     if (chart1.InvokeRequired)
                     {
-                        T += 33;
+                        T += 1;
                         double getValueI = (Convert.ToInt32(Convert.ToByte(port.ReadByte()))) / 51.2;
                         chart1.Invoke((MethodInvoker)delegate
                         {
                             if (checkBox1.Checked)
                             {
 
-                                double to;
-                                double from; 
+                                
                                 if ( double.TryParse(To_text.Text,out to) && double.TryParse(From_text.Text, out from) && (from < to))
                                 {
                                     currentXMax = to;
