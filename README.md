@@ -5,7 +5,8 @@ Oscilloscope using Arduino and computer
 ## ---------------------------------------------------------------------------------
 
 ## فيديو شرح المشروع بشكل كامل
-[![Project explanation video](github.com/mmdeeb/PcOscilloscope/blob/master/img/video.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
+[![Project explanation video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
+
 ### ماهو الـ Oscilloscope؟
 يعتبر Oscilloscope "راسم الاشارة" من أهم أجهزة قياس واختبار الدوائر الإلكترونية حيث أنه يمكننا من رؤية الإشارات في نقاط متعددة من الدائرة وبالتالي نستطيع اكتشاف إذا كان أي جزء يعمل بطريقة صحيحة أم لا.
 فالـ Oscilloscope يمكننا من رؤية صورة الإشارة ومعرفة شكلها فيما إذا كانت جيبيه أو مربعة مثلا.
