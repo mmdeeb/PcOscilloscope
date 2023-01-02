@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp3", "WindowsFormsApp3.csproj", "{D48AD1D9-EE05-48D3-9CA4-D729EB773293}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcOscilloscope", "PcOscilloscope.csproj", "{D48AD1D9-EE05-48D3-9CA4-D729EB773293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -183,14 +183,14 @@
             this.trackBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(113)))), ((int)(((byte)(83)))));
             this.trackBar1.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.trackBar1.Location = new System.Drawing.Point(6, 344);
-            this.trackBar1.Maximum = 100000;
-            this.trackBar1.Minimum = 1;
+            this.trackBar1.Maximum = 10000;
+            this.trackBar1.Minimum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.trackBar1.Size = new System.Drawing.Size(227, 45);
             this.trackBar1.TabIndex = 8;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Value = 35;
+            this.trackBar1.Value = 100;
             this.trackBar1.Scroll += new System.EventHandler(this.Time_Scroll);
             // 
             // label2

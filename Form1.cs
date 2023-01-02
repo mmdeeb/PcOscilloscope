@@ -16,6 +16,16 @@ namespace WindowsFormsApp3
 {
     public partial class Form1 : Form
     {
+        Thread masterThread;
+        SerialPort port;
+        List<String> Ex = new List<String>();
+        double T = 0;
+        int rowIndex = 0;
+        double currentXMax = 10;
+        double currentXMin = 1;
+        double currentYMax = 5;
+        double currentYMin = -5;
+        int TimeT = 1;
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +48,7 @@ namespace WindowsFormsApp3
             }
 
         }
-        int rowIndex = 0;
+
         void DataGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -50,10 +60,7 @@ namespace WindowsFormsApp3
                 contextMenuStrip1.Show(System.Windows.Forms.Cursor.Position);
             }
         }
-        List<String> Ex = new List<String>();
-        double T = 0;
-        Thread masterThread;
-        SerialPort port;
+
         private void Start_Click(object sender, EventArgs e)
         {
             try
@@ -91,7 +98,7 @@ namespace WindowsFormsApp3
         void Runit()
         {
             double to;
-            double from; 
+            double from;
             while (port.IsOpen)
             {
                 try
@@ -99,23 +106,19 @@ namespace WindowsFormsApp3
                     if (chart1.InvokeRequired)
                     {
                         T += 1;
-                        double getValueI = (Convert.ToInt32(Convert.ToByte(port.ReadByte()))) / 51.2;
+                        double getValueI = (Convert.ToInt32(port.ReadByte())) / 51.2;
                         chart1.Invoke((MethodInvoker)delegate
                         {
                             if (checkBox1.Checked)
                             {
 
-                                
-                                if ( double.TryParse(To_text.Text,out to) && double.TryParse(From_text.Text, out from) && (from < to))
+
+                                if (double.TryParse(To_text.Text, out to) && double.TryParse(From_text.Text, out from) && (from < to))
                                 {
                                     currentXMax = to;
-                                    currentXMin = from;   
+                                    currentXMin = from;
                                 }
-                                else 
-                                {  
-                                    currentXMax = T;
-                                    currentXMin = T - TimeT;
-                                }
+                                
                             }
                             else
                             {
@@ -126,7 +129,7 @@ namespace WindowsFormsApp3
                             chart1.ChartAreas[0].AxisX.Minimum = currentXMin;
                             chart1.ChartAreas[0].AxisX.Maximum = currentXMax;
                             V_Text.Text = getValueI.ToString();
-                            T_Text.Text = ((currentXMax - currentXMin) / 1000).ToString();
+                            T_Text.Text = (currentXMax - currentXMin).ToString();
                         });
                     }
                 }
@@ -139,7 +142,7 @@ namespace WindowsFormsApp3
                     dataGridView1.Rows[Ex.Count - 1].Cells[0].Style.ForeColor = Color.White;
                 }
             }
-        }     
+        }
         private void Up_Click(object sender, EventArgs e)
         {
             currentYMax += 1;
@@ -154,10 +157,7 @@ namespace WindowsFormsApp3
             setScale();
 
         }
-        double currentXMax = 10;
-        double currentXMin = 1;
-        double currentYMax = 5;
-        double currentYMin = -5;
+
         void setScale()
         {
             if (currentXMax > currentXMin && currentYMax > currentYMin)
@@ -167,9 +167,9 @@ namespace WindowsFormsApp3
                 chart1.ChartAreas[0].AxisY.Minimum = currentYMin;
             }
         }
+
         
-        int TimeT = 1;
-        
+
         private void Time_Scroll(object sender, EventArgs e)
         {
             setTimeT();
@@ -180,6 +180,6 @@ namespace WindowsFormsApp3
         }
 
 
-       
+
     }
 }
