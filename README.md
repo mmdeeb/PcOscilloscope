@@ -1,9 +1,7 @@
 # Oscilloscope /PC
 Oscilloscope using Arduino and computer
 ## Prepared by: Mohammed yousef mohammed deeb
-### A project for the subject of controllers in the faculty of Informatics Engineering at the University of Aleppo in the liberated areas
-## ---------------------------------------------------------------------------------
-
+A project for the subject of controllers in the faculty of Informatics Engineering at the University of Aleppo in the liberated areas
 ## فيديو شرح المشروع بشكل كامل
 [![Project explanation video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
 
