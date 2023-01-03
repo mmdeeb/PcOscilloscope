@@ -94,6 +94,6 @@ A project for the subject of controllers in the faculty of Informatics Engineeri
 
 <img src="https://github.com/mmdeeb/PcOscilloscope/blob/master/img/gui.jpg">
 
-### تم شرح الكود بالتفصيل ضمن الفيديو المرفق مع الملف
+### تم شرح الكود بالتفصيل ضمن الفيديو المرفق أعلاه
 
 
