@@ -2,69 +2,59 @@
 Oscilloscope using Arduino and computer
 ## Prepared by: Mohammed yousef mohammed deeb
 A project for the subject of controllers in the faculty of Informatics Engineering at the University of Aleppo in the liberated areas
-## فيديو شرح المشروع بشكل كامل
+## Full project explanation video
 [![Project explanation video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
 
-### ماهو الـ Oscilloscope؟
-يعتبر Oscilloscope "راسم الاشارة" من أهم أجهزة قياس واختبار الدوائر الإلكترونية حيث أنه يمكننا من رؤية الإشارات في نقاط متعددة من الدائرة وبالتالي نستطيع اكتشاف إذا كان أي جزء يعمل بطريقة صحيحة أم لا.
-فالـ Oscilloscope يمكننا من رؤية صورة الإشارة ومعرفة شكلها فيما إذا كانت جيبيه أو مربعة مثلا.
+###What is an Oscilloscope?
+The Oscilloscope "signal plotter" is considered one of the most important electronic circuit testing and measurement devices, as it allows us to see signals at multiple points in the circuit and thus detect if any part is working properly or not.
 
-  1-	متحكمة: واستخدمنا هنا شريحة Arduino mega2560
- 
- 2-	جهاز حاسب: أي جهاز حاسب بعد تحميل البرمجية الخاصة بالعرض
+The Oscilloscope allows us to see the signal image and identify its shape, whether sinusoidal, square, etc.
+
+ 1- Controller: Here we used Arduino mega2560 chip
+
+2- Computer: any computer with the software installed for display
 
 
-###	المتحكمة والعمليات والبرمجيات المطبقة عليها:
+###The controller and processes and software applied to it:
 
-كما تحدثنا سابقاً أننا استخدمنا في مشروعنا متحكم Atmega2560 والذي يعمل بترد 16MHz ويمتلك ضمن بنيته مبدل تشابهي رقمي والذي يسمح للمتحكم بقراءة ومعالجة الإشارات التشابهية المنتشرة في معظم التطبيقات ويتميز بالمواصفات التالية:
+As mentioned previously, we used the Atmega2560 controller in our project, which operates at 16MHz and has an analog-to-digital converter built into its structure, allowing the controller to read and process analog signals that are common in most applications, and is characterized by the following specifications:
+• 10-bit conversion accuracy, with absolute error (2LSB +)
+•	Conversion time [13 - 260 uS]
+•	Sampling rate up to 76.9 KSPS
+•	Multiplexer for selection between 16 channels
+•	Interruption upon completion of conversion
 
-•	دقة تبديل 10Bit، بخطأ مطلق (2LSB+) 
+For our application to work fully, there is a sequence of processes that take place in the controller as follows:
+1- Read voltage value from one of the multiplexer channels.
+2- Apply analog-to-digital conversion to it.
+3- Send this value to the computer via the USRT communication port
 
-•	زمن تبديل [13~260uS]
+This sequence of processes includes some sub-processes that will be explained in detail when explaining the programming code.
 
-•	تردد أخذ عينات يصل حتى 76.9KSPS
-
-•	ناخب اختيار بين 16 قناة
-
-•	مقاطعة اكتمال عملية التبديل
-
-ليعمل تطبيقنا بشكل كامل هنالك سلسلة من العمليات التي تتم في المتحكم وهي على الشكل التالي:
-
-1-	قراءة قيمة الجهد من أحد قنوات المبدل.
-
-2-	تطبيق عملية التبديل عليها.
-
-3-	إرسال هذه القيمة للحاسب عبر منفذ الاتصال USRT
-
-هذه السلسلة من العلميات تتضمن بعض العمليات الجزئية التي ستم شرحها بالتفصيل أثناء شرح الكود البرمجي
-
-م استخدام لغة الـ C لبرمجة المتحكمة مع محرر الأكواد mikroC
+Using the C language to program the controller with the mikroC code editor
 
 <img src="https://github.com/mmdeeb/PcOscilloscope/blob/master/img/mikroC.jpg">
 
 
-نلاحظ أن الكود مقسوم إلى ثلاثة أجزاء رئسية:
+We note that the code is divided into three main parts:
 
+1- ADC Initialization:
+-	ADMUX=0b00100000: Selecting the Aref pin voltage as a reference, left aligning the output, selecting channel ch0.
 
-1-	تهيئة المبدل ADC: 
+-	ADCSRA=0b10000111:Enabling the converter and selecting the division ratio (here we chose a division ratio of 128 because the processor's operating frequency is 16MHz and for the converter to function properly, the pulse rate driving the converter must be within the range [50KHz - 200KHz] 16MHz/128 = 125Khz and so we have achieved the required condition).
 
--	ADMUX=0b00100000: اختيار جهد القطب Aref كجهد مرجعي، محاذاة الناتج لليسار، اختيار القناة ch0.
+-	ADCSRB=0b00000000: No auto-trigger source was selected.
 
--	ADCSRA=0b10000111: تفعيل المبدل واختيار نسبة التقسيم (هنا اخترنا نسبة التقسيم 128 لأن تردد عمل المعالج هو 16MHz وحتى يعمل المبدل بشكل صحيح يجب أن يكون تردد نبضات تشغل المبدل ضمن المجال [50KHz ~ 200KHz] 16MHz / 128=125Khz وهكذا نكون قد حققنا الشرط المطلوب).
+-	DIR0=0b00000001: Configuring the register corresponding to ch0 to save power.
+2-	Configuring the USART communication port:
 
--	ADCSRB=0b00000000: لم يتم اختيار مصدر قدح آلي.
+-	UCSR0B=0b00001000: Enabling data transmission.
 
--	DIR0=0b00000001: ضبط الخانة الموافقة للقناة 0 بهدف توفير الطاقة.
+-	UCSR0C=0B00000110: Configuring the operating mode (Asynchronous USART) and specifying the stop bit size (1-bit) and data size (8-Bit).
 
-2-	تهيئة منفذ الاتصال USART:
+-	UBRR0H=0, UBRR0L=3: Specifying the data transmission rate (250K or 230.4k).
 
--	UCSR0B=0b00001000: تفعيل عملية ارسال البيانات.
-
--	UCSR0C=0B00000110: تحديد نمط العمل (Asynchronous USART) و تحديد حجم خانة التوقف (1-bit) وتحديد حجم المعطيات (8Bit). 
-
--	UBRR0H=0, UBRR0L=3: تحديد معدل ارسل البيانات (250K or 230.4k). 
-
-3-	حلقة لا نهائية ضمنها تتم عمليات المعالجة والإرسال:
+3-	An infinite loop within which processing and transmission operations take place:
 
 -	ADCSRA.B6=1: قدح المبدل ليبدأ التبديل.
 
