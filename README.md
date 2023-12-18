@@ -56,34 +56,34 @@ We note that the code is divided into three main parts:
 
 3-	An infinite loop within which processing and transmission operations take place:
 
--	ADCSRA.B6=1: قدح المبدل ليبدأ التبديل.
+- ADCSRA.B6=1: Triggering the ADC to start conversion.
 
--	While(ADCSRA.B4==0){}: انتظار تحول علم اكتمال التبديل إلى واحد.
+- While(ADCSRA.B4==0){}: Waiting for the conversion complete flag to become 1.
 
--	ADCSRA.B4=1: تصفير علم اكتمال التبديل.
+- ADCSRA.B4=1: Resetting the conversion complete flag.
 
--	UDR0=ADCH: ارسال نتيجة التبيدل عبر منفذ الاتصال.
+- UDR0=ADCH: Sending the conversion result via the communication port.
 
+So if we want to explain the process completely, it will be as follows:
 
-إذن لو أرردنا توضيح العملية بشكل كامل ستكون على الشكل التالي:
+First: The Aref is connected to a 5v power supply
 
-أولاً: نقوم بتوصيل الـ Aref مع منبع جهد 5v 
-
-ثانياً: تتم قراءة الإشارة المراد عرضها عبر القناة  CH0 والتي تسمى على شريحة الأردوينو A0، ومن ثم نقوم بتحويلها لقيمة رقمية ثم نقوم بإرسالها عبر قناة الاتصال USRAT وباقي العمليات تكون على الحاسب.
+Second: The signal to be displayed is read through channel CH0, which is called A0 on the Arduino chip, then it is converted to a digital value which is sent via the USART communication channel, and the rest of the processes are on the computer.
 
 <img src="https://github.com/mmdeeb/PcOscilloscope/blob/master/img/ar.jpg">
 
-###	الحاسب والبرمجية المطبقة عليه:
+###	The computer and software applied to it:
 
 
--	اللغة المستخدمة لبرمجة التطبيق هي لغة  C# تطبيقات Windows forms App.
 
--	المحرر: Microsoft Visual Studio 2022.
+The language used to program the application is C# Windows forms App.
+Editor: Microsoft Visual Studio 2022.
 
-#### الواجهة النهائية للتطبيق:
-
+#### application interface:
 <img src="https://github.com/mmdeeb/PcOscilloscope/blob/master/img/gui.jpg">
 
-### تم شرح الكود بالتفصيل ضمن الفيديو المرفق أعلاه
+###The code has been explained in detail in the video attached above.
+
+
 
 
