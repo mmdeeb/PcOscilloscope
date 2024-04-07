@@ -5,7 +5,7 @@ A project for the subject of controllers in the faculty of Informatics Engineeri
 ## Full project explanation video
 [![Project explanation video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
 
-###What is an Oscilloscope?
+### What is an Oscilloscope?
 The Oscilloscope "signal plotter" is considered one of the most important electronic circuit testing and measurement devices, as it allows us to see signals at multiple points in the circuit and thus detect if any part is working properly or not.
 
 The Oscilloscope allows us to see the signal image and identify its shape, whether sinusoidal, square, etc.
@@ -15,7 +15,7 @@ The Oscilloscope allows us to see the signal image and identify its shape, wheth
 2- Computer: any computer with the software installed for display
 
 
-###The controller and processes and software applied to it:
+### The controller and processes and software applied to it:
 
 As mentioned previously, we used the Atmega2560 controller in our project, which operates at 16MHz and has an analog-to-digital converter built into its structure, allowing the controller to read and process analog signals that are common in most applications, and is characterized by the following specifications:
 • 10-bit conversion accuracy, with absolute error (2LSB +)
@@ -82,7 +82,7 @@ Editor: Microsoft Visual Studio 2022.
 #### application interface:
 <img src="https://github.com/mmdeeb/PcOscilloscope/blob/master/img/gui.jpg">
 
-###The code has been explained in detail in the video attached above.
+### The code has been explained in detail in the video attached above.
 
 
 
