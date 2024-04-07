@@ -35,7 +35,7 @@ Developed using C# Windows Forms in Microsoft Visual Studio 2022, the PC applica
 ## Full Project Explanation Video
 Watch the detailed video explanation of the entire project [here](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link).
 
-![Project Explanation Video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)
+[![Project explanation video](https://github.com/mmdeeb/PcOscilloscope/blob/master/img/vv.jpg)](https://drive.google.com/file/d/1A7uExNKH6BorsYwiNYdgPYV827Eba2JP/view?usp=share_link)
 
 ## Installation
 For detailed instructions on how to set up the Oscilloscope/PC project, please refer to the video linked above.
